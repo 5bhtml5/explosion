@@ -1,6 +1,6 @@
 (function() {
   window.onload = function() {
-    var Point, canvas, ctx, dpoints, drawCircle, getRan, i, nPoint, points, update;
+    var Point, canvas, counter, ctx, dpoints, drawCircle, getRan, i, nPoint, points, update;
     canvas = document.getElementById("field");
     ctx = canvas.getContext('2d');
     Point = (function() {
@@ -19,6 +19,7 @@
       return Point;
 
     })();
+    counter = 0;
     getRan = function() {
       return (Math.random() - 0.5) * 2;
     };
@@ -38,7 +39,7 @@
         _results.push({
           dx: getRan(),
           dy: getRan(),
-          dsize: 0.01
+          dsize: 0.008
         });
       }
       return _results;
@@ -49,13 +50,18 @@
       return ctx.fill();
     };
     update = function() {
-      var d, _i, _j, _len;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var d, _i, _j, _k, _len, _len1;
       for (_i = 0, _len = points.length; _i < _len; _i++) {
         i = points[_i];
         drawCircle(i);
       }
-      for (i = _j = 0; 0 <= nPoint ? _j <= nPoint : _j >= nPoint; i = 0 <= nPoint ? ++_j : --_j) {
+      ctx.fillStyle = 'rgb(256,0,0)';
+      for (_j = 0, _len1 = points.length; _j < _len1; _j++) {
+        i = points[_j];
+        drawCircle(i);
+      }
+      ctx.fillStyle = 'rgb(256,256,0)';
+      for (i = _k = 0; 0 <= nPoint ? _k <= nPoint : _k >= nPoint; i = 0 <= nPoint ? ++_k : --_k) {
         d = dpoints[i];
         points[i].update(d.dx, d.dy, d.dsize);
       }
